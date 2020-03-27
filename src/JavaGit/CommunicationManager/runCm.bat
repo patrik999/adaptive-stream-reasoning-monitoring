@@ -1,0 +1,1 @@
+java -classpath %cd%\UpdateManager\editors;%cd%\UpdateManager;%cd%\CommunicationManager communicationManagerSetup.CmStartup

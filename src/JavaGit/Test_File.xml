@@ -1,0 +1,78 @@
+<InterfaceDescription>
+	<SR_ID>1</SR_ID>
+	<Parameters>
+		<Parameter>
+			<id>1</id>
+			<name>a</name>
+			<type>string</type>
+			<value>lag</value>
+			<comment>This I sAC ommen t</comment>
+		</Parameter>
+	</Parameters>
+	<Data>
+		<sr_default>
+			<mode>pull</mode>
+			<buffered>false</buffered>
+			<delay>0</delay>
+		</sr_default>
+		<Predicate>
+			<id>0</id>
+			<name>TrafficJam</name>
+			<number_of_arguments>2</number_of_arguments>
+			<type>string</type>
+			<comment>Takes as first argument the line identifier
+				and as second argument the exact location of the 
+				traffic jam on the line
+			</comment>
+			<communication>
+				<default>
+					<mode>push</mode>
+					<buffered>false</buffered>
+					<delay>5</delay>
+				</default>
+				<exceptions>
+					<exception>
+						<id>0</id>
+						<arguments>
+							<argument nr='0'>U0,U00</argument>
+							<argument nr='1'>Karlsplatz,Schwedenplatz</argument>
+						</arguments>
+						<mode>pull</mode>
+						<buffered>false</buffered>
+						<delay>0</delay>
+					</exception>
+					<exception>
+						<id>1</id>
+						<arguments>
+							<argument nr='0'>U1,U11</argument>
+							<argument nr='1'>Karlsplatz,Schwedenplatz</argument>
+						</arguments>
+						<mode>push</mode>
+						<buffered>false</buffered>
+						<delay>0</delay>
+					</exception>
+					<exception>
+						<id>2</id>
+						<arguments>
+							<argument nr='0'>U2,U22</argument>
+							<argument nr='1'>Karlsplatz,Schwedenplatz</argument>
+						</arguments>
+						<mode>push</mode>
+						<buffered>true</buffered>
+						<delay>3</delay>
+					</exception>
+					<exception>
+						<id>3</id>
+						<arguments>
+							<argument nr='0'>U3,U33</argument>
+							<argument nr='1'>Karlsplatz,Schwedenplatz</argument>
+						</arguments>
+						<mode>push</mode>
+						<buffered>true</buffered>
+						<delay>10</delay>
+					</exception>
+				</exceptions>
+			</communication>
+		</Predicate>
+	</Data>
+</InterfaceDescription>
