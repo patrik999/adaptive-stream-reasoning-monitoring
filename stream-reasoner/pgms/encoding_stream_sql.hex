@@ -1,0 +1,18 @@
+
+@printLine("+++"){0}.
+
+@printLine("Cars are ",V0,V1){V0} :-
+  &sql2["SELECT iid, x FROM v_speed  WHERE iid < 310 GROUP BY iid, x, tp HAVING (iid, tp) IN (SELECT iid, max(tp) FROM v_speed GROUP BY iid) ORDER BY iid"](V0,V1).
+
+% init :- &persistenceByPred[init](init).
+% @persistenceUnset(init) :- init.
+% @persistenceSet(iteration(1)) :- init.
+
+@persistenceSet(iteration(1)).
+@persistenceSet(iteration(X+1)) :- &persistenceByPred[iteration](iteration(X)).
+
+@printLine("Iteration: ", X) :- &persistenceByPred[iteration](iteration(X)).
+
+@acthexStop :- &persistenceByPred[iteration](iteration(10)).
+
+@sleep(100).

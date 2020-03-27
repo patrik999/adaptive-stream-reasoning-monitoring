@@ -1,0 +1,31 @@
+carInLane(Car, Speed, Lane) :-
+  &sql3["SELECT S.iid, S.x, P.x FROM v_speed as S, v_pos as P WHERE S.iid = P.iid and S.tp = P.tp GROUP BY S.iid, S.x, P.x, S.tp HAVING (S.iid, S.tp) IN (SELECT S.iid, max(tp) FROM v_speed as S GROUP BY S.iid) ORDER BY S.iid"](Car,Speed,CarPos),
+	&geomInside[CarPos,GeomSpec], mapLane(Lane), hasGeo(Lane, GeomSpec).
+
+
+@printLine("+++"){0}.
+
+laneFill(Lane, Cars) :- mapLane(Lane), Cars = #count { Car : carInLane(Car,_,Lane) }.
+laneSlow(Lane, Cars) :- mapLane(Lane), Cars = #count { CarID : carInLane(CarID,Speed,Lane), Speed < 2 }.
+@printLine("Lane ",Lane," has ",Cars," cars (",SlowCars," are slow)"){1000} :-
+	laneFill(Lane,Cars), laneSlow(Lane, SlowCars), Cars > 0.
+
+% traffic jam with hysteresis
+trafficHysteresis(2,3).
+trafficJamStart(Lane) :- laneSlow(Lane,Cars), Cars > UpperThreshold, trafficHysteresis(_,UpperThreshold).
+trafficJamEnd(Lane) :- laneSlow(Lane,Cars), Cars < LowerThreshold, trafficHysteresis(LowerThreshold,_).
+@persistenceSet(trafficJam(Lane)) :- trafficJamStart(Lane).
+@persistenceUnset(trafficJam(Lane)) :- trafficJamEnd(Lane).
+trafficJam(Lane) :- trafficJamStart(Lane).
+trafficJam(Lane) :- &persistenceByPred[trafficJam](trafficJam(Lane)), not trafficJamEnd(Lane).
+
+@printLine("Traffic jam on lane ",Lane," with ",Cars," slow cars"){1001} :- trafficJam(Lane), laneSlow(Lane,Cars).
+
+@sleep(500).
+
+init :- &persistenceByPred[init](init).
+@persistenceUnset(init) :- init.
+@persistenceSet(iteration(1)) :- init.
+@persistenceSet(iteration(X+1)) :- &persistenceByPred[iteration](iteration(X)).
+@acthexStop :- &persistenceByPred[iteration](iteration(100)).
+
