@@ -1,0 +1,29 @@
+<InterfaceDescription>
+	<SR_ID>0</SR_ID>
+	<Parameters>
+	</Parameters>
+	<Data>
+		<sr_default>
+			<mode>pull</mode>
+			<buffered>false</buffered>
+			<delay>0</delay>
+		</sr_default>
+		<Predicate>
+			<id>0</id>
+			<name>carInLane</name>
+			<number_of_arguments>2</number_of_arguments>
+			<type>string</type>
+			<comment>First argument is lane identifier and second argument the number of cars.
+    		</comment>
+			<communication>
+				<default>
+					<mode>push</mode>
+					<buffered>true</buffered>
+					<delay>10</delay>
+				</default>
+				<exceptions>
+				</exceptions>
+			</communication>
+		</Predicate>
+	</Data>
+</InterfaceDescription>

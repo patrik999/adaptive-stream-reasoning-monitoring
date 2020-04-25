@@ -1,0 +1,21 @@
+
+server_adr("ws://localhost:1976").
+
+@wsConnect(X) :- not &wsConnected[X], server_adr(X).
+@wsClose(X) :- &persistenceByPred[iteration](iteration(100)), &wsConnected[X], server_adr(X).
+
+@wsSend("carInLane(l10,", X ,")") :- &randomValue(X).
+@wsSend("carInLane(l20,", X ,")") :- &randomValue(X).
+
+@printLine("Time: ", X) :-  &timeStamp[""](X).
+
+
+@persistenceSet(iteration(1)).
+@persistenceSet(iteration(X+1)) :- &persistenceByPred[iteration](iteration(X)).
+
+
+@acthexStop :- &persistenceByPred[iteration](iteration(100)).
+
+
+% Display
+#server_adr/1.

@@ -1,0 +1,63 @@
+<InterfaceDescription>
+	<SR_ID>0</SR_ID>
+	<Parameters>
+	</Parameters>
+	<Data>
+		<sr_default>
+			<mode>pull</mode>
+			<buffered>false</buffered>
+			<delay>0</delay>
+		</sr_default>
+		<Predicate>
+			<id>3</id>
+			<name>prideParade</name>
+			<number_of_arguments>1</number_of_arguments>
+			<type>string</type>
+			<comment>First argument is lane identifier of where the pride parade takes place.
+    		</comment>
+			<communication>
+				<default>
+					<mode>push</mode>
+					<buffered>false</buffered>
+					<delay>0</delay>
+				</default>
+				<exceptions>
+				</exceptions>
+			</communication>
+		</Predicate>
+		<Predicate>
+			<id>4</id>
+			<name>prideParadeEnd</name>
+			<number_of_arguments>1</number_of_arguments>
+			<type>string</type>
+			<comment>First argument is lane identifier of where the pride parade takes place.
+    		</comment>
+			<communication>
+				<default>
+					<mode>push</mode>
+					<buffered>false</buffered>
+					<delay>0</delay>
+				</default>
+				<exceptions>
+				</exceptions>
+			</communication>
+		</Predicate>
+		<Predicate>
+			<id>6</id>
+			<name>vehicleStop</name>
+			<number_of_arguments>2</number_of_arguments>
+			<type>string</type>
+			<comment>First argument is the vehicle id while the second argument is the speed.
+    		</comment>
+			<communication>
+				<default>
+					<mode>push</mode>
+					<buffered>false</buffered>
+					<delay>20</delay>
+				</default>
+				<exceptions>
+				</exceptions>
+			</communication>
+		</Predicate>
+	</Data>
+</InterfaceDescription>

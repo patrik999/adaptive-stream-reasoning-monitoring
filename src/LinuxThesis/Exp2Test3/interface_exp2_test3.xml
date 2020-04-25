@@ -1,0 +1,72 @@
+<InterfaceDescription>
+	<SR_ID>0</SR_ID>
+	<Parameters>
+		<Parameter>
+			<id>0</id>
+			<name>speed_for_vehicle_stop</name>
+			<type>int</type>
+			<value>010.00</value>
+			<comment>Speed under which a vehicle is deemed as stopped.</comment>
+		</Parameter>
+	</Parameters>
+	<Data>
+		<sr_default>
+			<mode>pull</mode>
+			<buffered>false</buffered>
+			<delay>0</delay>
+		</sr_default>
+		<Predicate>
+			<id>6</id>
+			<name>vehicleStop</name>
+			<number_of_arguments>2</number_of_arguments>
+			<type>string</type>
+			<comment>First argument is the vehicle id while the second argument is the speed.
+    		</comment>
+			<communication>
+				<default>
+					<mode>push</mode>
+					<buffered>false</buffered>
+					<delay>0</delay>
+				</default>
+				<exceptions>
+				</exceptions>
+			</communication>
+		</Predicate>
+		<Predicate>
+			<id>1</id>
+			<name>trafficJam</name>
+			<number_of_arguments>1</number_of_arguments>
+			<type>string</type>
+			<comment>Takes as first argument the line identifier
+				and as second argument the exact location of the 
+				traffic jam on the line
+			</comment>
+			<communication>
+				<default>
+					<mode>push</mode>
+					<buffered>false</buffered>
+					<delay>0</delay>
+				</default>
+				<exceptions>
+				</exceptions>
+			</communication>
+		</Predicate>
+				<Predicate>
+			<id>2</id>
+			<name>trafficLightState</name>
+			<number_of_arguments>2</number_of_arguments>
+			<type>string</type>
+			<comment>The first argument defines the traffic light id and the second one whether it's green or red
+			</comment>
+			<communication>
+				<default>
+					<mode>push</mode>
+					<buffered>false</buffered>
+					<delay>0</delay>
+				</default>
+				<exceptions>
+				</exceptions>
+			</communication>
+		</Predicate>
+	</Data>
+</InterfaceDescription>

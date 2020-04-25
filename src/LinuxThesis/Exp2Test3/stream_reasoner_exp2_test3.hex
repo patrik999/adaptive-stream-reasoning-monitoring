@@ -1,0 +1,25 @@
+
+
+server_adr("ws://localhost:1976").
+
+trafficCount(V0,V1) :- &sql2["SELECT iid, to_char(ROUND(x, 2), 'fm000.00') as x1 FROM v_speed_mrel GROUP BY iid, x, tp HAVING (iid, tp) IN (SELECT iid, MAX(tp) FROM v_speed_mrel GROUP BY iid) ORDER BY iid"](V0,V1).
+
+@wsConnect(X) :- not &wsConnected[X], server_adr(X).
+@wsClose(X) :- &persistenceByPred[iteration](iteration(100)), &wsConnected[X], server_adr(X).
+
+@wsSend("vehicleStop(",V0,",",V1,")") :- trafficCount(V0,V1), V1 <= "010.00", V0 > 790.
+%@wsSend("info(VehicleSpeed,",V0,",",V1,")") :- trafficCount(V0,V1), V0 > 0.
+
+
+@printLine("Time: ", X) :-  &timeStamp[""](X).
+
+@persistenceSet(iteration(1)).
+@persistenceSet(iteration(X+1)) :- &persistenceByPred[iteration](iteration(X)).
+
+@wsSend("trafficJam(l20)") :- &currentCounter(X), X=15.
+
+@acthexStop :- &persistenceByPred[iteration](iteration(100)).
+
+
+% Display
+%server_adr/1.
